@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Browser.Events exposing (onAnimationFrame)
 import Css exposing (..)
+import Css.Animations exposing (..)
 import Css.Global exposing (body, everything, global, html)
 import Date as Date exposing (Date)
 import Html as H exposing (Html)
@@ -115,7 +116,7 @@ dayView days hours boundedhours =
             else
                 days
     in
-    span [ css [ defaultTextRulesCss, fontSize (Css.rem 6) ] ] [ text (String.fromInt day), text label ]
+    span [ css [ defaultTextRulesCss, fontSize (Css.rem 5) ] ] [ text (String.fromInt day), text label ]
 
 
 clockView : Int -> Int -> Int -> HS.Html msg
@@ -201,7 +202,7 @@ view ({ countdown, end, background } as model) =
                 [ fontSize (px 16)
                 , fontFamilies [ "Nosifer", .value cursive ]
                 , backgroundImage (url background)
-                , backgroundSize cover
+                , Css.backgroundSize cover
                 , backgroundRepeat noRepeat
                 , margin2 zero auto
                 , justifyContent center
@@ -209,6 +210,13 @@ view ({ countdown, end, background } as model) =
                 , Css.property "align-content" "flex-end"
                 , Css.width (vw 100)
                 , Css.height (vh 100)
+                , Css.animationName
+                    (keyframes
+                        [ ( 0, [ Css.Animations.backgroundColor (rgba 0 0 0 0) ] )
+                        , ( 100, [ Css.Animations.backgroundColor (rgba 0 0 0 1) ] )
+                        ]
+                    )
+                , Css.property "animation-duration" "2s"
                 ]
             ]
         , countdownView countdown end
