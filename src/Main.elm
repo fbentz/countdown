@@ -63,7 +63,7 @@ dayView days hours =
             else
                 days
     in
-    span [ class "days" ] [ text (String.fromInt days), text label ]
+    span [ class "days" ] [ text (String.fromInt day), text label ]
 
 
 clockView : Int -> Int -> Int -> Html msg
@@ -96,14 +96,26 @@ view ({ countdown, end } as model) =
             Date.diff Date.Days (Date.fromPosix utc countdown) (Date.fromPosix utc end)
 
         hours =
-            countdown
-                |> Time.toHour utc
-                |> (-) (Time.toHour utc end)
+            if Time.toHour utc countdown > Time.toHour utc end then
+                end
+                    |> Time.toHour utc
+                    |> (-) (Time.toHour utc countdown)
+                    |> (-) 24
+
+            else
+                countdown
+                    |> Time.toHour utc
+                    |> (-) (Time.toHour utc end)
 
         min =
-            countdown
-                |> Time.toMinute utc
-                |> (-) 60
+            if Time.toMinute utc countdown == 0 then
+                countdown
+                    |> Time.toMinute utc
+
+            else
+                countdown
+                    |> Time.toMinute utc
+                    |> (-) 60
 
         sec =
             countdown
