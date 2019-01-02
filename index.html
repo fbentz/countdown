@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+  <title> AD&D :: Countdown </title>
+  <style>
+    * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-size: 16px;
+      font-family: "Nosifer", cursive;
+    }
+
+    body {
+      background: url('/assets/341792.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      display: grid;
+      justify-content: center;
+
+    }
+
+    .countdown {
+      font-size: 3rem;
+      display: grid;
+      justify-content: center;
+    }
+
+    .days {
+      font-size: 6rem;
+      color: rgba(255, 255, 255, 1);
+      text-shadow: 1px 2px 3px rgba(160, 33, 33, 0.9), 1px 2px 28px rgba(255, 255, 255, 0.9);
+    }
+
+    .clock {
+      padding: 10px 30px;
+      color: rgba(255, 255, 255, 1);
+      text-shadow:1px 2px 3px rgba(160, 33, 33, 0.9), 1px 2px 28px rgba(255, 255, 255, 0.9);
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="countdown"></div>
+  <script src="app.js"></script>
+  <script type="text/javascript">
+    const app = Elm.Main.init({
+      node: document.getElementById("countdown")
+    });
+  </script>
+</body>
+</html>
