@@ -8,7 +8,8 @@
     "debug": "elm-live src/Main.elm --port=3000 --dir=public/  -- --output=public/app.js --debug",
     "build": "npm run copy-assets && elm make src/Main.elm --optimize --output=build/app.js",
     "copy-assets": "rimraf build && mkdir build && cp -r public/* build",
-    "optimize": "uglifyjs build/app.js -c -m -o build/app.js"
+    "optimize": "uglifyjs build/app.js -c -m -o build/app.js",
+    "deploy": "npm run build && gh-pages --dist build/"
   },
   "author": "",
   "license": "MIT",
