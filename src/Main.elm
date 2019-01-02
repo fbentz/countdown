@@ -3,8 +3,9 @@ module Main exposing (main)
 import Browser
 import Browser.Events exposing (onAnimationFrame)
 import Date as Date exposing (Date)
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html as H exposing (Html)
+import Html.Styled as HS exposing (..)
+import Html.Styled.Attributes exposing (..)
 import Task
 import Time exposing (..)
 
@@ -18,6 +19,11 @@ type alias Model =
     { countdown : Posix
     , end : Posix
     }
+
+
+background : List String
+background =
+    [ "http://getwallpapers.com/wallpaper/full/5/a/2/341101.jpg" ]
 
 
 init : () -> ( Model, Cmd Msg )
@@ -42,7 +48,7 @@ subscriptions model =
     onAnimationFrame CheckTime
 
 
-dayView : Int -> Int -> Html msg
+dayView : Int -> Int -> HS.Html msg
 dayView days hours =
     let
         label =
@@ -66,7 +72,7 @@ dayView days hours =
     span [ class "days" ] [ text (String.fromInt day), text label ]
 
 
-clockView : Int -> Int -> Int -> Html msg
+clockView : Int -> Int -> Int -> HS.Html msg
 clockView hours minute second =
     let
         format int =
@@ -89,7 +95,7 @@ clockView hours minute second =
         ]
 
 
-view : Model -> Html Msg
+view : Model -> H.Html Msg
 view ({ countdown, end } as model) =
     let
         days =
@@ -125,7 +131,9 @@ view ({ countdown, end } as model) =
     div [ class "countdown" ]
         [ dayView days hours
         , clockView hours min sec
+        , img [ src (List.head background |> Maybe.withDefault "") ] []
         ]
+        |> HS.toUnstyled
 
 
 main : Program () Model Msg
