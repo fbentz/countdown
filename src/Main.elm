@@ -42,8 +42,8 @@ subscriptions model =
     onAnimationFrame CheckTime
 
 
-dayView : Int -> Html msg
-dayView days =
+dayView : Int -> Int -> Html msg
+dayView days hours =
     let
         label =
             case days of
@@ -55,6 +55,13 @@ dayView days =
 
                 _ ->
                     " jours"
+
+        day =
+            if hours > 21 then
+                days - 1
+
+            else
+                days
     in
     span [ class "days" ] [ text (String.fromInt days), text label ]
 
@@ -104,7 +111,7 @@ view ({ countdown, end } as model) =
                 |> (-) 59
     in
     div [ class "countdown" ]
-        [ dayView days
+        [ dayView days hours
         , clockView hours min sec
         ]
 
